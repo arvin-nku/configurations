@@ -1,5 +1,15 @@
 "Vim configuration file.
 
+" Useful tools for the terminal {{{
+" vipw -> for adding and modifying information on the passwd file
+" bat -> cat but more advanced! (good to overview code)
+" watch -> with this command you can display the output of a command
+" periodically
+" you can switch vim files with the :edit command and then either <TAB> to find
+" the fitting file you are searching for or 
+" ctrl-d to find everything in the current directory
+" }}}
+
 " Useful Key-bindings {{{ 
 " IMPORTANT KEYS
 " c-f -> page down
@@ -44,10 +54,43 @@
 " VISUAL MODE
 " s-j & s-k -> move current selected block up/down 
 
+" tmux commands and usage
+" c-o -> rotate the panes forwards
+" c-z -> suspend the tmux client
+" " -> split the current pane into two (top and bottom!)
+" ! -> break the current pane out of the window
+" # -> list all paste buffers
+" $ -> rename the current session
+" % -> split the current pane into two (left and right!)
+" & -> kill the current window!
+" ' -> prompt for a window index to select
+" ` -> rename the current session!
+" - -> delete the most recently copied buffer of text!
+" . -> prompt for an index to move the current window
+" 0 to 9 -> select windows 0 to 9
+" : -> enter the tmux command prompt!
+" ; -> move to the previously active pane
+" ? -> list all key bindings
+" [ -> enter copy mode to copy text or view the history 
+" ] -> paste the most recently copied buffer of text
+" c -> create a new window!
+" d -> detach the current client
+" f -> prompt to search for text in open windows!
+" i -> display some information about the current window
+" m -> mark the current pane -> (M -> clear the marked pane)
+" q -> briefly display pane indexes
+" t -> show the time
+" x -> kill the current pane
+" { -> swap the current pane with the previous pane
+" } -> swap the current pane with the next pane
+" ~ -> show previous messages from tmux, if any
+
 " }}}
 
 " PLUGINS ---------------------------------------------------------------- {{{
 call plug#begin('~/.vim/plugged')
+    set encoding=UTF-8
+
     Plug 'preservim/nerdtree'
     Plug 'Xuyuanp/nerdtree-git-plugin'
     Plug 'dense-analysis/ale'
@@ -61,6 +104,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'psliwka/vim-smoothie'
     Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
  
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
 
     Plug 'cocopon/iceberg.vim'
@@ -72,7 +116,6 @@ call plug#begin('~/.vim/plugged')
 
     Plug 'ryanoasis/vim-devicons'
 
-    set encoding=UTF-8
 call plug#end()
 " }}}
 
@@ -114,8 +157,8 @@ nnoremap <F3> :NERDTreeToggle<CR>
 nmap <F8> :TagbarToggle<CR>
 
 " Insert esc key mapping
-inoremap jk <Esc>
-inoremap kj <Esc>
+inoremap jk <Esc>l
+inoremap kj <Esc>l
 
 " Uress the space bar t type the : character in command mode.
 nnoremap <space> :
@@ -135,10 +178,10 @@ nnoremap <f5> :w <CR>:!clear <CR>:!python3 % <CR>
 nnoremap <leader>s :split<CR>
 nnoremap <leader>vs :vsplit<CR>
 " havigate the split view easier by pressing C-j, C-k, C-h, Cl
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-h> <c-w>h
-nnoremap <h-l> <c-w>l
+"nnoremap <c-j> <c-w>j
+"nnoremap <c-l> <c-w>l
+"nnoremap <c-k> <c-w>k
+"nnoremap <c-h> <c-w>h
 
 " Resize split windows using arrow keys by pressing:
 " CTRL+UP, CTRL+DOWN, CTRL+LEFT, or CTRL+RIGHT.
@@ -259,7 +302,12 @@ if version >= 703
     set undoreload=10000
 endif
 
-" You can split a window into sections by typing `:split` or `:vsplit`.
+if has('win32')
+    " Avoid mswin.vim making Ctrl-v act as paste
+    nnoremap <C-V> <C-V>
+endif
+
+    " You can split a window into sections by typing `:split` or `:vsplit`.
 " Display cursorline and cursorcolumn ONLY in active window.
 augroup cursor_off
     autocmd!
