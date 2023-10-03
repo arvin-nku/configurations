@@ -1,4 +1,4 @@
-"Vim configuration file.
+" Vim configuration file.
 
 " Useful tools for the terminal {{{
 " vipw -> for adding and modifying information on the passwd file
@@ -10,8 +10,10 @@
 " ctrl-d to find everything in the current directory
 " }}}
 
-" Useful Key-bindings {{{ 
+" Useful Key-bindings {{{
 " IMPORTANT KEYS
+" c-c (when in command mode ':') -> cancels the whole command and leaves
+" command mode! 
 " c-f -> page down
 " c-b -> page up
 " c-d -> half page down
@@ -84,39 +86,6 @@
 " { -> swap the current pane with the previous pane
 " } -> swap the current pane with the next pane
 " ~ -> show previous messages from tmux, if any
-
-" }}}
-
-" PLUGINS ---------------------------------------------------------------- {{{
-call plug#begin('~/.vim/plugged')
-    set encoding=UTF-8
-
-    Plug 'preservim/nerdtree'
-    Plug 'Xuyuanp/nerdtree-git-plugin'
-    Plug 'dense-analysis/ale'
-    Plug 'vim-scripts/RltvNmbr.vim'
-    Plug 'sheerun/vim-polyglot'
-    Plug 'preservim/tagbar'
-    Plug 'derekwyatt/vim-fswitch' " This is something i still did not set up!
-    Plug 'jiangmiao/auto-pairs'
-    Plug 'matze/vim-move'
-    Plug 'ycm-core/YouCompleteMe'
-    Plug 'psliwka/vim-smoothie'
-    Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
- 
-    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-    Plug 'junegunn/fzf.vim'
-
-    Plug 'cocopon/iceberg.vim'
-    Plug 'arcticicestudio/nord-vim'
-    Plug 'Badacadabra/vim-archery'
-    Plug 'kristijanhusak/vim-hybrid-material'
-    Plug 'scheakur/vim-scheakur'
-    Plug 'lifepillar/vim-solarized8'
-
-    Plug 'ryanoasis/vim-devicons'
-
-call plug#end()
 " }}}
 
 " MAPPINGS --------------------------------------------------------------- {{{
@@ -126,17 +95,10 @@ let mapleader= ","
 " Terminal
 nnoremap <leader>t :term<CR>
 
-" Map <leader>\ to :RltvNmbr
-nnoremap <leader>\ :RltvNmbr<CR>
-" Map <leader>\ to :RltvNmbr
-nnoremap <leader>\\ :RltvNmbr!<CR>
 " Map <leader>w to :w
 nnoremap <leader>w :w<CR>
 " Map <leader>q to :wq
 nnoremap <leader>q :wq<CR>
-
-" fzf switching file
-map ; :Files<CR>
 
 "" Map INSERTMODE
 " Map Word deletion
@@ -147,20 +109,13 @@ inoremap <c-w> <c-o>dw
 " Move to end of the line
 nnoremap <leader>e $
 " Move to beginnig of the line
-nnoremap <leader>b 0
-
-" Setting mappings for NERDTree.
-" Map the F3 key to toggle NERDTree open and close.
-nnoremap <F3> :NERDTreeToggle<CR>
-
-" Tagbar 
-nmap <F8> :TagbarToggle<CR>
+nnoremap <leader>b ^
 
 " Insert esc key mapping
 inoremap jk <Esc>l
 inoremap kj <Esc>l
 
-" Uress the space bar t type the : character in command mode.
+" Press the space bar t type the : character in command mode.
 nnoremap <space> :
 
 " Pressing the letter o will open a new line below the current one.
@@ -172,16 +127,20 @@ nnoremap O O<Esc>
 nnoremap n nzz
 nnoremap N Nzz
 
+" PROGRAMMING
+" PYTHON -------------------------------------------
 " Map the F5 key to run a Python script inside Vim.
 nnoremap <f5> :w <CR>:!clear <CR>:!python3 % <CR>
+
 " Map :split to leader-s and :vsplit to leader-vs
 nnoremap <leader>s :split<CR>
 nnoremap <leader>vs :vsplit<CR>
+
 " havigate the split view easier by pressing C-j, C-k, C-h, Cl
-"nnoremap <c-j> <c-w>j
-"nnoremap <c-l> <c-w>l
-"nnoremap <c-k> <c-w>k
-"nnoremap <c-h> <c-w>h
+nnoremap <c-j> <c-w>j
+nnoremap <c-l> <c-w>l
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
 
 " Resize split windows using arrow keys by pressing:
 " CTRL+UP, CTRL+DOWN, CTRL+LEFT, or CTRL+RIGHT.
@@ -193,39 +152,13 @@ noremap <c-right> <c-w><
 nnoremap <esc><esc> :silent! nohls<cr>
 " }}}
 
-" VIMSCRIPT -------------------------------------------------------------- {{{
-" set terminal size
-set termwinsize=12x0 
-" Always split below
-set splitbelow
-" Enable mouse support.
-" Set filetype off
-filetype off
+" PLUGINS {{{
+call plug#begin('~/.vim/plugged')
+    Plug 'altercation/vim-colors-solarized'
+call plug#end()
+" }}}
 
-" Enable mouse 
-set mouse=a
-
-" Enable syntax.
-syntax on
-
-" Enable linu numbers. 
-set number 
-
-" Highlight cursor line underneath the cursor horizontally.
-set cursorline 
-
-" Highlight cursor line underneath the cursor vertically.
-set cursorcolumn
-
-" Setting colorscheme
-colorscheme molokai
-
-" Enable highlight search pattern.
-set hlsearch
-
-" Enable smartcase search sensitivity.
-set ignorecase
-set smartcase
+" VIMSCRIPT {{{
 
 " Indentation using spaces
 " tabstop:	width of tab character
@@ -240,17 +173,44 @@ set textwidth 	=79
 set expandtab
 set autoindent
 
+" Set termwinsize=12x0
+set termwinsize=12x0
+
+" Always splitbelow
+"set splitbelow
+
+" Enable mouse support
+"set mouse=a
+
+" Set filetype off
+filetype off
+
+" Enable syntax
+syntax on
+
+" Enableline numbers.
+set number
+
+" Highlight cursor line underneath the cursor horizontally.
+set cursorline
+
+" Highlight cursor line underneath the cursor vertically.
+set cursorcolumn
+
+" Setting colorscheme
+let g:solarized_termcolors=256
+colorscheme solarized
+set background=dark
+
+" Enable highlight search pattern.
+set hlsearch
+
+" Enable smartcase search sensitivity.
+set ignorecase
+set smartcase
+
 " Show the matching part of pairs [] {} and ().
 set showmatch
-
-" Remove trailing whitespace from Python files.
-autocmd BufWritePre *.py :%s/\s\+$//e
-autocmd BufWritePre *.f90 :%s/\s\+$//e
-autocmd BufWritePre *.f95 :%s/\s\+$//e
-autocmd BufWritePre *.for :%s/\s\+$//e
-
-" Enable color themes.
-set t_Co=256
 
 " Disable compatibility with vi which can cause unexpected issues.
 set nocompatible
@@ -266,31 +226,19 @@ filetype plugin on
 filetype indent on
 
 " Do not let cursor scroll below or above N number of lines when scrolling.
-set scrolloff=10
+"set scrolloff=10
 
 " While searching through a file incrementally highlight matching characters as
 " You type.
-set incsearch
-
-" Set the command to save in history default number is 20.
-" Set history=1000
-
-" Enable auto completion menu after pressing TAB.
-set wildmenu
-
-" Make wildmenu behave like similar to BAsh completion.
-set wildmode=list:longest
-
-" There are certain files that we would never want to edit with vim.
-" Wildmenu will ignore files with these extensions.
-set wildignore=*.docx,*.jpg,*png,*.gif,*pyc,*.exe,*.flv,*.img,*xlsx
+"set incsearch
 
 " This will enable code folding.
 " Use the marker method of folding.
 augroup filetype_vim
     autocmd!
-    autocmd FileType vim setlocal foldmethod=marker
+    autocmd FileType vim setlocal foldmethod=marker 
 augroup END
+
 " If the current file type is HTML, set indentation to 2 spaces.
 autocmd Filetype html setlocal tabstop=2 shiftwidth=2 expandtab
 
@@ -302,64 +250,9 @@ if version >= 703
     set undoreload=10000
 endif
 
-if has('win32')
-    " Avoid mswin.vim making Ctrl-v act as paste
-    nnoremap <C-V> <C-V>
-endif
+let g:skip_loading_mswin = 1
 
-    " You can split a window into sections by typing `:split` or `:vsplit`.
-" Display cursorline and cursorcolumn ONLY in active window.
-augroup cursor_off
-    autocmd!
-    autocmd WinLeave * set nocursorline nocursorcolumn
-    autocmd WinEnter * set cursorline cursorcolumn
-augroup END
-
-" NERDTree conf
-" Close the tab if NERDTree is the only window remaining in it.
-autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-" Set this variable to 1 to fix files when you save them.
-let g:NERDTreeWinPos="left"
-let NERDTreeWinSize=31
-let NERDTreeShowBookmarks=1
-let NERDTreeShowHidden=1
-let NERDTreeMinimalMenu=1
-let NERDTreeShowLineNumbers=0
-
-let g:ale_fix_on_save = 1
-let g:ale_completion_enabled = 1
-set omnifunc=ale#completion#OmniFunc
-
-" Focus the panel when opening it
-let g:tagbar_autofocus = 1" Highlight the active tag
-let g:tagbar_autoshowtag = 1" Make panel vertical and place on the right
-let g:tagbar_position = 'botright vertical'
-
-" Vim-Move
-let g:move_key_modifier='C'
-let g:move_key_modifier_visualmode= 'S'
-
-
-let g:NERDTreeGitStatusIndicatorMapCustom = {
-                \ 'Modified'  :'✹',
-                \ 'Staged'    :'✚',
-                \ 'Untracked' :'✭',
-                \ 'Renamed'   :'➜',
-                \ 'Unmerged'  :'═',
-                \ 'Deleted'   :'✖',
-                \ 'Dirty'     :'✗',
-                \ 'Ignored'   :'☒',
-                \ 'Clean'     :'✔︎',
-                \ 'Unknown'   :'?',
-                \ }
-
-let g:NERDTreeGitStatusUseNerdFonts = 1 " you should install nerdfonts by yourself. default: 0
-
-let g:WebDevIconsUnicodeDecorateFileNodesDefaultsSymbol='x'
-
-let g:NERDTreeDirArrowExpandable = '>'
-let g:NERDTreeDirArrowCollapsible = 'v'
-" }}}
+"}}}
 
 " STATUS LINE ------------------------------------------------------------ {{{
 " show the mode you are on the last line.
