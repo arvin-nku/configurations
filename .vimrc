@@ -5,9 +5,18 @@
 " bat -> cat but more advanced! (good to overview code)
 " watch -> with this command you can display the output of a command
 " periodically
+" fzf -> fuzzy file finder (finds files by searching through the whole system
+" very fast)
+" neofetch -> gives system information alongside with the distribution logo
+" btop -> system(hardware/software) monitoring
 " you can switch vim files with the :edit command and then either <TAB> to find
 " the fitting file you are searching for or 
 " ctrl-d to find everything in the current directory
+" --> you need to understand fzf ag and rg commands! and config them.
+"
+" MY OWN CONFIG AND MAPPINGS
+" TERMINAL -> you can use the terminal in vim with (,t) and exit with C-d.
+" FZF -> open last worked file in buffer with (,bo).
 " }}}
 
 " Useful Key-bindings {{{
@@ -89,8 +98,20 @@
 " }}}
 
 " MAPPINGS --------------------------------------------------------------- {{{
+" IDE settings
+map <F8>c :w <CR> :!gcc % -o %< && ./%< <CR>
+map <F8>p :w <CR> :!python3 % <CR>
+map <F8>cc :w <CR> :!g++ -std=c++20 % -o %< && ./%< <CR>
 " Setting leader key.
 let mapleader= ","
+
+" fzf
+" find files
+nnoremap <leader>f :Files ~<CR>
+" search buffer
+nnoremap <leader>b :Buffers<CR>
+" open last buffer work
+nnoremap <leader>bo :Buffers<CR><CR>
 
 " Terminal
 nnoremap <leader>t :term<CR>
@@ -114,6 +135,8 @@ nnoremap <leader>b ^
 " Insert esc key mapping
 inoremap jk <Esc>l
 inoremap kj <Esc>l
+inoremap JK <Esc>l
+inoremap KJ <Esc>l
 
 " Press the space bar t type the : character in command mode.
 nnoremap <space> :
@@ -130,13 +153,13 @@ nnoremap N Nzz
 " PROGRAMMING
 " PYTHON -------------------------------------------
 " Map the F5 key to run a Python script inside Vim.
-nnoremap <f5> :w <CR>:!clear <CR>:!python3 % <CR>
+" nnoremap <f5> :w <CR>:!clear <CR>:!python3 % <CR>
 
 " Map :split to leader-s and :vsplit to leader-vs
 nnoremap <leader>s :split<CR>
 nnoremap <leader>vs :vsplit<CR>
 
-" havigate the split view easier by pressing C-j, C-k, C-h, Cl
+" navigate the split view easier by pressing C-j, C-k, C-h, Cl
 nnoremap <c-j> <c-w>j
 nnoremap <c-l> <c-w>l
 nnoremap <c-k> <c-w>k
@@ -155,6 +178,9 @@ nnoremap <esc><esc> :silent! nohls<cr>
 " PLUGINS {{{
 call plug#begin('~/.vim/plugged')
     Plug 'altercation/vim-colors-solarized'
+    Plug 'bfrg/vim-cpp-modern'
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plug 'junegunn/fzf.vim'
 call plug#end()
 " }}}
 
@@ -234,9 +260,9 @@ filetype indent on
 
 " This will enable code folding.
 " Use the marker method of folding.
-augroup filetype_vim
+augroup global_folding
     autocmd!
-    autocmd FileType vim setlocal foldmethod=marker 
+    autocmd BufRead * setlocal foldmethod=marker
 augroup END
 
 " If the current file type is HTML, set indentation to 2 spaces.
@@ -251,6 +277,9 @@ if version >= 703
 endif
 
 let g:skip_loading_mswin = 1
+
+let g:fzf_vim = {}
+let g:fzf_vim['dir'] = expand('~')
 
 "}}}
 
