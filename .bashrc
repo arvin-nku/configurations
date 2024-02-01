@@ -21,6 +21,7 @@ if [ -f "$HOME/.bash-git-prompt/gitprompt.sh" ]; then
     GIT_PROMPT_ONLY_IN_REPO=1
     source "$HOME/.bash-git-prompt/gitprompt.sh"
 fi
+
 # vim-mode for command line 
 set -o vi
 bind '"jj": vi-movement-mode'
@@ -33,6 +34,9 @@ PS1='\[\e[1;34m\][\[\e[1;35m\]\u\[\e[1;34m\]]\[\e[1;34m\]@\[\e[1;34m\][\[\e[1;35
 # }}}
 
 # ALIAS{{{
+# tldr -> readable man
+# cs for cheat sheet
+alias cs='tldr'
 # bat command (improved cat)
 alias bat='batcat'
 # exa (improved ls)
@@ -40,9 +44,19 @@ alias al='exa --all --long'
 alias lt='exa --long --tree'
 alias la='exa --all'
 # vim to nvim
-# alias vim='nvim'
+alias vim='nvim'
 alias F5='source ~/.bashrc'
+# disk monitoring
+alias diskncdu='ncdu'
 # }}}
+
+# FUNCTIONS - this is so powerful because every function is ready when written
+#           - because bash has compiled everything and is ready to be used so
+#           - can easily use the functions you worte here like cheatsh() 
+# cheat.sh/$
+cs() {
+  curl cheat.sh/"$1"
+}
 
 # DEFAULTS - NOT TOUCHED YET!{{{
 # If not running interactively, don't do anything
@@ -158,3 +172,7 @@ export PATH=$PATH:/snap/bin
 export PATH=$PATH:~/.emacs.d/bin
 # }}}
 
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
