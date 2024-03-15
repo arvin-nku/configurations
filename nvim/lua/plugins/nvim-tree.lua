@@ -8,10 +8,11 @@ return {
 			},
 			view = {
 				adaptive_size = true,
-        side = "right",
+				side = "right",
+			},
+			renderer = {
+				highlight_diagnostics = false,
 			},
 		})
 	end,
 }
-
-

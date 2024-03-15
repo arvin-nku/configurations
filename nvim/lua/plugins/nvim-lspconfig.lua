@@ -1,5 +1,6 @@
 local on_attach = require("util.lsp").on_attach
 local diagnostic_signs = require("util.icons").diagnostic_signs
+local typescript_organise_imports = require("util.lsp").typescript_organise_imports
 
 local config = function()
 	require("neoconf").setup({})
@@ -63,6 +64,18 @@ local config = function()
 		capabilities = capabilities,
 		filetypes = {
 			"typescript",
+			"javascript",
+			"typescriptreact",
+			"javascriptreact",
+		},
+		commands = {
+			TypeScriptOrganizeImports = typescript_organise_imports,
+		},
+		settings = {
+			typescript = {
+				indentStyle = "space",
+				indentSize = 2,
+			},
 		},
 		root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", ".git"),
 	})

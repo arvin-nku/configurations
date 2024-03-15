@@ -2,7 +2,7 @@ local config = function()
 	require("nvim-treesitter.configs").setup({
 		build = ":TSUpdate",
 		indent = {
-			enable = false,
+			enable = true,
 		},
 		autotag = {
 			enable = true,
@@ -30,6 +30,9 @@ local config = function()
 			"vue",
 			"svelte",
 			"toml",
+			"cpp",
+			"c",
+			"python",
 		},
 		auto_install = true,
 		highlight = {
@@ -39,10 +42,10 @@ local config = function()
 		incremental_selection = {
 			enable = true,
 			keymaps = {
-				init_selection = "<C-s>",
-				node_incremental = "<C-s>",
-				scope_incremental = false,
-				node_decremental = "<BS>",
+				init_selection = "gnn",
+				node_incremental = "grn",
+				scope_incremental = "gcr",
+				node_decremental = "grm",
 			},
 		},
 	})

@@ -1,4 +1,5 @@
 -- lualine is the config for panel at the bottom
+
 local config = function()
 	require("lualine").setup({
 		options = {

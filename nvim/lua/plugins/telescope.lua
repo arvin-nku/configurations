@@ -4,7 +4,7 @@ local config = function()
 	local telescope = require("telescope")
 	telescope.setup({
 		defaults = {
-      -- i prefer not to use i but instead use jk to exit insert mode and then move up/down with j/k  
+			-- i prefer not to use i but instead use jk to exit insert mode and then move up/down with j/k
 			mappings = {
 				i = {
 					["<C-j>"] = "move_selection_next",
