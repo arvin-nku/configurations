@@ -1,0 +1,19 @@
+# Ignore environment files
+.env
+*.env
+
+# Ignore log files
+*.log
+
+# Ignore text files
+*.txt
+
+# Ignore all log directories
+logs/
+
+# Ignore specific files in config directory
+config/*.env
+
+# Ignore all log files except app.log
+*.log
+!app.log
