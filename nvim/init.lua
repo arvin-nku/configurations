@@ -1,3 +1,4 @@
-require("config")
--- problem vim.schedule solved by commenting out lines somewhere in 1613 in
--- lsp.lua
+require('plugins')
+require('utils')
+require('core')
+require('lsp')
