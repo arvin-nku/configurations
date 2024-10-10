@@ -38,8 +38,8 @@ local opts = { noremap = true, silent = true }
 -- function to select different instances of TC
 keymap.set("n", "<leader>fk", ":Telescope keymaps<CR>")
 keymap.set("n", "<leader>fh", ":Telescope help_tags<CR>")
-keymap.set("n", "<leader>ff", ":Telescope find_files<CR>")
-keymap.set("n", "<leader>fg", ":Telescope live_grep<CR>")
+-- keymap.set("n", "<leader>ff", ":Telescope find_files<CR>")
+-- keymap.set("n", "<leader>fg", ":Telescope live_grep<CR>")
 keymap.set("n", "<leader>fb", ":Telescope buffers<CR>")
 
 
@@ -79,6 +79,12 @@ keymap.set("n", "<leader>bqt", ":bdelete!<CR>", opts) -- don't save
 keymap.set("n", "<leader>e", "$", opts)
 -- move to the beginning of the line
 keymap.set("n", "<leader>bh", "^", opts)
+-- move current line (also for visual mode)
+-- A stands for 'alt' key not Capital 'A'
+keymap.set("n", "<A-k>", ":m .-2<CR>==") -- move line down(n)
+keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv") -- move line up(v)
+keymap.set("n", "<A-j>", ":m .+1<CR>==") -- move line up(n)
+keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv") -- move line down(v)
 
 -- Fast Saving and Quitting File
 keymap.set("n", "<leader>w", ":w<CR>", opts) -- save file
